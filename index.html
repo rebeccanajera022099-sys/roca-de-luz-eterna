@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Roca De Luz Eterna</title>
+  <meta name="description" content="Roca De Luz Eterna - Iglesia Cristiana" />
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header__row">
+      <div class="brand">
+        <div class="brand__name">Roca De Luz Eterna</div>
+        <div class="brand__tag">Una familia en Cristo</div>
+      </div>
+
+      <nav class="nav">
+        <a href="#horarios">Horarios</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#contacto">Contacto</a>
+        <span class="lang">
+          <strong>ES</strong> · <a href="/en/">EN</a>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Bienvenidos</h1>
+      <p>Te invitamos a adorar con nosotros y crecer en la fe.</p>
+      <div class="hero__info">
+        <div class="card">
+          <h2>Servicio</h2>
+          <p><strong>Domingos:</strong> 11:00 AM</p>
+          <p><strong>Dirección:</strong> (pon tu dirección)</p>
+        </div>
+        <div class="card">
+          <h2>Contacto</h2>
+          <p><strong>Tel:</strong> (tu número)</p>
+          <p><strong>Email:</strong> (tu email)</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="horarios" class="section">
+      <h2>Horarios</h2>
+      <ul>
+        <li>Domingo: 11:00 AM — Servicio</li>
+        <li>Miércoles: 7:00 PM — Estudio bíblico</li>
+        <li>Niños: durante el servicio</li>
+      </ul>
+    </section>
+
+    <section id="eventos" class="section">
+      <h2>Eventos</h2>
+      <div id="events" class="grid"></div>
+      <p class="hint">Esta sección se actualiza desde el panel de administración.</p>
+    </section>
+
+    <section id="contacto" class="section">
+      <h2>Contacto</h2>
+      <p><strong>Dirección:</strong> (pon tu dirección)</p>
+      <p><strong>Redes:</strong> Facebook / Instagram</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <small>© <span id="y"></span> Roca De Luz Eterna</small>
+    </div>
+  </footer>
+
+  <script src="/assets/events.js"></script>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>
