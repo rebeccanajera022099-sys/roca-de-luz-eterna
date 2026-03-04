@@ -1,58 +1,59 @@
 async function loadEvents() {
-  const container = document.getElementById("events-list");
+  const container = document.getElementById("events");
   if (!container) return;
 
-  // IMPORTANT: update these only if your GitHub username/repo changes
+  // Update only if your GitHub username/repo changes
   const owner = "rebeccanajera022099-sys";
   const repo = "roca-de-luz-eterna";
   const path = "content/events";
 
-  container.innerHTML = "Loading events...";
+  container.innerHTML = "<div class='card'>Cargando eventos…</div>";
 
   try {
-    // 1) List files in the folder via GitHub API
+    // List files in /content/events using GitHub Contents API
     const listUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     const listRes = await fetch(listUrl);
 
-    if (!listRes.ok) {
-      throw new Error(`GitHub list failed: ${listRes.status}`);
-    }
+    if (!listRes.ok) throw new Error(`GitHub list failed: ${listRes.status}`);
 
     const files = await listRes.json();
 
-    // 2) Keep only .json files (ignore anything else)
     const jsonFiles = files
       .filter(f => f.type === "file" && f.name.toLowerCase().endsWith(".json"));
 
     if (jsonFiles.length === 0) {
-      container.innerHTML = "<li>No events yet.</li>";
+      container.innerHTML = "<div class='card'>No hay eventos todavía.</div>";
       return;
     }
 
-    // 3) Fetch each event file’s raw content
+    // Fetch each event json
     const events = [];
     for (const f of jsonFiles) {
-      const eventRes = await fetch(f.download_url);
-      if (!eventRes.ok) continue;
-
-      const ev = await eventRes.json();
+      const res = await fetch(f.download_url);
+      if (!res.ok) continue;
+      const ev = await res.json();
       events.push(ev);
     }
 
-    // 4) Sort by date (ascending)
+    // Sort by date
     events.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
 
-    // 5) Render
+    // Render as cards
     container.innerHTML = events.map(ev => {
       const date = ev.date || "";
       const title = ev.title_es || ev.title_en || "Evento";
       const where = ev.where_es || ev.where_en || "";
-      return `<li><strong>${date}</strong> — ${title}${where ? ` (${where})` : ""}</li>`;
+      return `
+        <div class="card">
+          <h3 style="margin:0 0 6px 0;">${title}</h3>
+          <p style="margin:0;"><strong>${date}</strong>${where ? ` • ${where}` : ""}</p>
+        </div>
+      `;
     }).join("");
 
-  } catch (error) {
-    console.error(error);
-    container.innerHTML = "<li>Unable to load events.</li>";
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = "<div class='card'>No se pudieron cargar los eventos.</div>";
   }
 }
 
