@@ -1,25 +1,24 @@
-backend:
-  name: git-gateway
-  branch: main
-
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
-
 collections:
-  - name: "content"
-    label: "Contenido"
-    files:
-      - label: "Eventos"
-        name: "events"
-        file: "content/events.json"
-        format: "json"
-        fields:
-          - label: "Eventos"
-            name: "events"
-            widget: "list"
-            fields:
-              - { label: "Fecha", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-              - { label: "Título (ES)", name: "title_es", widget: "string" }
-              - { label: "Título (EN)", name: "title_en", widget: "string" }
-              - { label: "Lugar (ES)", name: "where_es", widget: "string", required: false }
-              - { label: "Lugar (EN)", name: "where_en", widget: "string", required: false }
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ" }
+
+      - { label: "End Date/Time", name: "endDate", widget: "datetime", required: false, format: "YYYY-MM-DDTHH:mm:ssZ" }
+
+      - { label: "Location", name: "location", widget: "string", required: false }
+
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+
+      - { label: "Description", name: "body", widget: "markdown", required: false }
+
+      - { label: "Published", name: "published", widget: "boolean", default: true }
