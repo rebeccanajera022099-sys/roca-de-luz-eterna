@@ -1,4 +1,13 @@
-[
-  { "date": "2026-03-15", "title_es": "Servicio Dominical", "title_en": "Sunday Service", "where_es": "Templo", "where_en": "Sanctuary" },
-  { "date": "2026-03-18", "title_es": "Estudio Bíblico", "title_en": "Bible Study", "where_es": "Iglesia", "where_en": "Church" }
-]
+- name: "events"
+  label: "Eventos"
+  folder: "content/events"
+  create: true
+  slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+  extension: "json"
+  format: "json"
+  fields:
+    - { label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false }
+    - { label: "Título (ES)", name: "title_es", widget: "string" }
+    - { label: "Title (EN)", name: "title_en", widget: "string" }
+    - { label: "Lugar (ES)", name: "where_es", widget: "string" }
+    - { label: "Location (EN)", name: "where_en", widget: "string" }
